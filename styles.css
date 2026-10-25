@@ -1,0 +1,149 @@
+/* ===== Design tokens: change colors and fonts here ===== */
+:root {
+  --ink: #000;
+  --paper: #fff;
+  --grey: #595959;      /* secondary text, passes contrast on white */
+  --rule: #d9d9d9;      /* light lines */
+  --serif: Georgia, "Times New Roman", serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --space: clamp(3.5rem, 8vw, 6.5rem);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+.wrap { width: min(100% - 2.5rem, 68rem); margin-inline: auto; }
+
+h1, h2, h3 { font-family: var(--serif); font-weight: 700; line-height: 1.15; margin: 0; }
+h1 { font-size: clamp(2.4rem, 7vw, 4.4rem); letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.7rem, 4vw, 2.3rem); }
+h3 { font-size: 1.2rem; }
+p { margin: 0 0 1em; max-width: 62ch; }
+
+a { color: inherit; text-underline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+.skip-link {
+  position: absolute; left: -999px; top: 0;
+  background: var(--ink); color: var(--paper); padding: .6rem 1rem; z-index: 20;
+}
+.skip-link:focus { left: 0; }
+
+/* ===== Header ===== */
+.site-header {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--paper);
+  border-bottom: 1px solid var(--ink);
+}
+.header-inner { display: flex; align-items: center; justify-content: space-between; min-height: 3.5rem; }
+.brand { font-family: var(--serif); font-weight: 700; font-size: 1.15rem; text-decoration: none; }
+
+.nav-toggle {
+  font: inherit; background: none; color: var(--ink);
+  border: 1px solid var(--ink); padding: .35rem .9rem; cursor: pointer;
+}
+
+/* Mobile: menu hidden until the button is pressed */
+.site-nav {
+  display: none;
+  position: absolute; left: 0; right: 0; top: 100%;
+  background: var(--paper); border-bottom: 1px solid var(--ink);
+  flex-direction: column;
+}
+.site-nav.open { display: flex; }
+.site-nav a { padding: 1rem 1.25rem; text-decoration: none; border-top: 1px solid var(--rule); }
+.site-nav a:hover { text-decoration: underline; }
+
+@media (min-width: 760px) {
+  .nav-toggle { display: none; }
+  .site-nav {
+    display: flex; position: static; flex-direction: row; gap: 2rem;
+    border: 0; background: none;
+  }
+  .site-nav a { padding: 0; border: 0; }
+}
+
+/* ===== Buttons ===== */
+.btn {
+  display: inline-block; padding: .8rem 1.4rem;
+  border: 1px solid var(--ink); background: var(--paper); color: var(--ink);
+  text-decoration: none; font-weight: 600;
+}
+.btn:hover { background: var(--ink); color: var(--paper); }
+.btn-solid { background: var(--ink); color: var(--paper); }
+.btn-solid:hover { background: var(--paper); color: var(--ink); }
+.actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.75rem; }
+
+/* ===== Hero ===== */
+.hero { padding-block: var(--space) calc(var(--space) * .8); }
+.hero-grid { display: grid; gap: 3rem; align-items: center; }
+.lead { font-size: 1.2rem; color: var(--grey); margin-top: 1.5rem; }
+
+@media (min-width: 900px) {
+  .hero-grid { grid-template-columns: 1.4fr 1fr; gap: 4rem; }
+}
+
+/* The ledger: the one memorable element */
+.ledger { margin: 0; border: 1px solid var(--ink); padding: 1.5rem; }
+.ledger figcaption { font-family: var(--serif); font-style: italic; color: var(--grey); margin-bottom: 1rem; }
+.ledger dl { margin: 0; font-variant-numeric: tabular-nums; }
+.ledger dl div { display: flex; justify-content: space-between; gap: 1rem; padding: .55rem 0; border-bottom: 1px solid var(--rule); }
+.ledger dt { margin: 0; }
+.ledger dd { margin: 0; }
+.ledger .total { font-weight: 700; border-bottom: 0; padding-bottom: .35rem; margin-top: .4rem; border-top: 1px solid var(--ink); }
+/* accounting double rule under the total */
+.ledger .total dd { border-bottom: 3px double var(--ink); padding-bottom: .15rem; }
+
+/* ===== Sections ===== */
+.section { padding-block: var(--space); border-top: 1px solid var(--ink); }
+.two-col { display: grid; gap: 1.5rem; }
+@media (min-width: 760px) { .two-col { grid-template-columns: 1fr 2fr; gap: 3rem; } }
+
+.note { color: var(--grey); font-style: italic; margin-top: .75rem; }
+.small { color: var(--grey); font-size: .95rem; }
+
+.facts { list-style: none; padding: 0; margin: 1.5rem 0 0; border-top: 1px solid var(--rule); }
+.facts li { padding: .6rem 0; border-bottom: 1px solid var(--rule); }
+
+/* ===== Services: ledger rows with dotted leaders ===== */
+.rows { list-style: none; padding: 0; margin: 2.5rem 0 0; border-top: 1px solid var(--ink); }
+.rows li {
+  display: grid; gap: .5rem;
+  padding: 1.5rem 0; border-bottom: 1px solid var(--rule);
+}
+.rows p { margin: .4rem 0 0; color: var(--grey); }
+.leader { display: none; }
+.price { font-weight: 700; font-variant-numeric: tabular-nums; }
+
+@media (min-width: 760px) {
+  .rows li { grid-template-columns: minmax(0, 28rem) 1fr auto; align-items: baseline; gap: 1rem; }
+  .leader { display: block; border-bottom: 2px dotted var(--ink); height: 1px; transform: translateY(-.35rem); }
+}
+
+/* ===== Sample work ===== */
+.cases { display: grid; gap: 2.5rem; margin-top: 2.5rem; }
+@media (min-width: 900px) { .cases { grid-template-columns: repeat(3, 1fr); gap: 2rem; } }
+
+.case { border-top: 3px solid var(--ink); padding-top: 1rem; }
+.case dl { margin: 1rem 0 0; }
+.case dt { font-weight: 700; margin-top: 1rem; }
+.case dd { margin: .2rem 0 0; color: var(--grey); }
+
+/* ===== Footer ===== */
+.site-footer { border-top: 1px solid var(--ink); padding-block: 2rem; color: var(--grey); font-size: .95rem; }
+.site-footer p { margin: 0; }
+
+/* ===== Respect reduced motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
